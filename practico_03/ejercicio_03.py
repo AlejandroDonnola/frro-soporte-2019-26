@@ -2,13 +2,20 @@
 # Devuelve un booleano en base a si encontro el registro y lo borro o no.
 
 import datetime
-
+import pymysql
+db = pymysql.connect(host='localhost', user='root', password='852456', port=3306, db='Python')
+cursor = db.cursor()
 from practico_03.ejercicio_01 import reset_tabla
 from practico_03.ejercicio_02 import agregar_persona
 
 
 def borrar_persona(id_persona):
-    return False
+    x=cursor.execute("DELETE FROM Persona WHERE IdPersona = %s",id_persona)
+    db.commit()
+    if x==0:
+        return False
+    else:
+        return True
 
 
 @reset_tabla
