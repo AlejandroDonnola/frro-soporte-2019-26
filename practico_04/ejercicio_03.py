@@ -6,23 +6,24 @@ from tkinter import ttk
 
 
 class Application(ttk.Frame):
-    def __init__(self, main_window):
+    def __init__(self, main_window, resolucion):
         super().__init__(main_window)
         main_window.title("Ciudades de Argentina")
-        main_window.geometry('400x300+600+200')
-        self.treeview = ttk.Treeview(self, columns=("cod_postal"))
+        main_window.geometry(resolucion)
+        self.treeview = ttk.Treeview(self, columns="cod_postal", selectmode=tk.BROWSE)
         self.treeview.heading("#0", text="Ciudad")
         self.treeview.heading("cod_postal", text="Código Postal")
-        self.treeview.insert("", tk.END, text="Rosario", values=("2000"))
-        self.treeview.insert("", tk.END, text="La Plata", values=("1900"))
-        self.treeview.insert("", tk.END, text="Mendoza", values=("5500"))
-        self.treeview.insert("", tk.END, text="Capitán Bermudez", values=("2154"))
-        self.treeview.insert("", tk.END, text="Santa Fe", values=("3000"))
-        self.treeview.pack()
-        self.pack()
+        self.treeview.insert("", tk.END, text="Rosario", values="2000")
+        self.treeview.insert("", tk.END, text="La Plata", values="1900")
+        self.treeview.insert("", tk.END, text="Mendoza", values="5500")
+        self.treeview.insert("", tk.END, text="Capitán Bermudez", values="2154")
+        self.treeview.insert("", tk.END, text="Santa Fe", values="3000")
+        self.treeview.grid(row=0)
+        self.grid()
 
 
 if __name__=='__main__':
     main_window = tk.Tk()
-    app = Application(main_window)
+    res = '400x230+600+200'
+    app = Application(main_window, res)
     app.mainloop()
