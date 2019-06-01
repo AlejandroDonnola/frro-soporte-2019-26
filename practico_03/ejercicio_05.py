@@ -1,35 +1,15 @@
-
 # Implementar la funcion actualizar_persona, que actualiza un registro de una persona basado en su id.
 # Devuelve un booleano en base a si encontro el registro y lo actualizo o no.
 
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from ejercicio_01 import Persona,reset_tabla
-from ejercicio_02 import agregar_persona
-from ejercicio_04  import buscar_persona
-
 import datetime
 
-Base = declarative_base()
-engine = create_engine('mysql://root:852456ale@localhost:3306/python')
-Base.metadata.bind = engine
-DBSession = sessionmaker()
-DBSession.bind = engine
-session = DBSession()
+from practico_03.ejercicio_01 import reset_tabla
+from practico_03.ejercicio_02 import agregar_persona
+from practico_03.ejercicio_04 import buscar_persona
+
 
 def actualizar_persona(id_persona, nombre, nacimiento, dni, altura):
-    x = buscar_persona(id_persona)
-    if x is False:
-        return False
-    else:
-        x.Nombre = nombre
-        x.FechaNacimiento = nacimiento
-        x.DNI = dni
-        x.Altura= altura
-        print(x)
-        session.commit()
-
+    return False
 
 
 @reset_tabla
