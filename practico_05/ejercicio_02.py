@@ -1,6 +1,5 @@
 # Implementar los metodos de la capa de datos de socios.
 
-
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from practico_05.ejercicio_01 import Base, Socio
@@ -16,20 +15,12 @@ class DatosSocio(object):
         self.session = db_session()
 
     def buscar(self, id_socio):
-        """
-        Devuelve la instancia del socio, dado su id.
-        Devuelve None si no encuentra nada.
-        :rtype: Socio
-        """
-        return
+        oSoc = self.session.query(Socio).filter(Socio.IdSocio == id_socio).first()
+        return oSoc
 
     def buscar_dni(self, dni_socio):
-        """
-        Devuelve la instancia del socio, dado su dni.
-        Devuelve None si no encuentra nada.
-        :rtype: Socio
-        """
-        return
+        oSoc = self.session.query(Socio).filter(Socio.DNI == dni_socio).first()
+        return oSoc
 
     def todos(self):
         """
@@ -47,20 +38,18 @@ class DatosSocio(object):
         return False
 
     def alta(self, socio):
-        """
-        Devuelve el Socio luego de darlo de alta.
-        :type socio: Socio
-        :rtype: Socio
-        """
+        self.session.add(socio)
+        self.session.commit()
         return socio
 
     def baja(self, id_socio):
-        """
-        Borra el socio especificado por el id.
-        Devuelve True si el borrado fue exitoso.
-        :rtype: bool
-        """
-        return False
+        oSoc = self.session.query(Socio).filter(Socio.IdSocio == id_socio).first()
+        if oSoc is None:
+            return False
+        else:
+            self.session.delete(oSoc)
+            self.session.commit()
+            return True
 
     def modificacion(self, socio):
         """
@@ -75,19 +64,18 @@ class DatosSocio(object):
 def pruebas():
     # alta
     datos = DatosSocio()
-    socio = datos.alta(Socio(dni=12345678, nombre='Juan', apellido='Perez'))
-    assert socio.id > 0
+    socio = datos.alta(Socio(DNI=12345678, Nombre='Juan', Apellido='Perez'))
+    assert socio.IdSocio > 0
 
     # baja
-    assert datos.baja(socio.id) == True
+    assert datos.baja(socio.IdSocio) is True
 
     # buscar
-    socio_2 = datos.alta(Socio(dni=12345679, nombre='Carlos', apellido='Perez'))
-    assert datos.buscar(socio_2.id) == socio_2
+    socio_2 = datos.alta(Socio(DNI=12345679, Nombre='Carlos', Apellido='Perez'))
+    assert datos.buscar(socio_2.IdSocio) == socio_2
 
     # buscar dni
-    socio_2 = datos.alta(Socio(dni=12345679, nombre='Carlos', apellido='Perez'))
-    assert datos.buscar(socio_2.dni) == socio_2
+    assert datos.buscar_dni(socio_2.DNI) == socio_2
 
     # modificacion
     socio_3 = datos.alta(Socio(dni=12345680, nombre='Susana', apellido='Gimenez'))
