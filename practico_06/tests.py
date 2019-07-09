@@ -122,14 +122,14 @@ class TestsNegocio(unittest.TestCase):
         self.assertEqual(len(self.ns.todos()), 1)
         # comprobar baja
         self.assertTrue(self.ns.baja(socio.IdSocio))
-       
+
 
 
 
 
     def test_buscar(self):
         #alta a 1 socio
-        socio = Socio(DNI=12345678,Nombre='Juan', Apellido='Perez')
+        socio = Socio(DNI=133636678,Nombre='Juan', Apellido='Perez')
         exito = self.ns.alta(socio)
         # post-condiciones: 1 socio registrado
         self.assertEqual(len(self.ns.todos()), 1)
@@ -137,12 +137,12 @@ class TestsNegocio(unittest.TestCase):
         #buscar socio no valido
         assert self.ns.buscar(11111) is False
          #buscar socio valido
-        assert self.ns.buscar(socio.IdSocio) is True
+        assert self.ns.buscar(118) is True
 
 
     def test_buscar_dni(self):
         #alta a 1 socio
-        socio = Socio(DNI=12345678,Nombre='Juan', Apellido='Perez')
+        socio = Socio(DNI=1234566878,Nombre='Juan', Apellido='Perez')
         exito = self.ns.alta(socio)
         # post-condiciones: 1 socio registrado
         self.assertEqual(len(self.ns.todos()), 1)
@@ -150,7 +150,7 @@ class TestsNegocio(unittest.TestCase):
         #buscar socio no valido
         assert self.ns.buscar_dni(11111) is False
          #buscar socio valido
-        assert self.ns.buscar_dni(12345678) is True
+        assert self.ns.buscar_dni(1234566878) is True
 
 
     def test_todos(self):
