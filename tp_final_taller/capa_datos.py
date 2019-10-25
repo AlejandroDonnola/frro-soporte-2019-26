@@ -4,15 +4,16 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.schema import PrimaryKeyConstraint
 from sqlalchemy.engine import create_engine
 
-
 Base = declarative_base()
-engine = create_engine('sqlite:///socios.db')
+engine = create_engine('sqlite:///taller.db')
+
 
 class Rol(Base):
     __tablename__ = 'roles'
     codRol = Column(Integer, primary_key=True, autoincrement=True)
     descripcion = Column(String(80), nullable=False)
     usuarios = relationship("Usuario")
+
 
 class Usuario(Base):
     __tablename__ = 'usuarios'
@@ -29,6 +30,7 @@ class Usuario(Base):
     reparaciones = relationship("Reparacion")
     hojas = relationship("HojaDeParte")
 
+
 class Auto(Base):
     __tablename__ = 'autos'
     idAuto = Column(Integer, unique=True, autoincrement=True)
@@ -40,13 +42,15 @@ class Auto(Base):
     reparaciones = relationship("Reparacion")
     hojas = relationship("HojaDeParte")
 
+
 class Repuesto(Base):
     __tablename__ = 'repuestos'
     idRepuesto = Column(Integer, primary_key=True, autoincrement=True)
     descripcion = Column(String(30), nullable=False)
     stock = Column(Integer, nullable=False)
     ptoPedido = Column(Integer, nullable=True)
-    precio_unitario = Column(Float, nullable=False, unique=True)
+    precio_unitario = Column(Float, nullable=False)
+
 
 class HojaDeParte(Base):
     __tablename__ = 'hojas'
@@ -57,12 +61,14 @@ class HojaDeParte(Base):
     idRepuesto = Column(Integer, ForeignKey('repuestos.idRepuesto'), nullable=True)
     cantidad = Column(Integer, nullable=False)
 
+
 class Factura(Base):
     __tablename__ = 'facturas'
     idFactura = Column(Integer, primary_key=True, autoincrement=True)
     fechaEmision = Column(Date, nullable=False)
     idHoja = Column(Integer, ForeignKey('hojas.idHoja'), nullable=False)
     importeTotal = Column(Float, nullable=False)
+
 
 class Reparacion(Base):
     __tablename__ = 'reparaciones'
@@ -74,6 +80,7 @@ class Reparacion(Base):
     estado = Column(String(40), nullable=False)
     PrimaryKeyConstraint(patente,idMecanico,fechaIngreso)
 
+
 class Proveedor(Base):
     __tablename__ = 'proveedores'
     idProveedor = Column(Integer, unique=True, autoincrement=True)
@@ -83,11 +90,11 @@ class Proveedor(Base):
     direccion = Column(String(30), nullable=True)
     email = Column(String(30), nullable=False)
 
+
 proveedor_repuesto = Table('proveedorRepuesto', Base.metadata,
             Column('cuit_proveedor', String(30), ForeignKey('proveedores.cuit')),
             Column('id_repuesto', Integer, ForeignKey('repuestos.idRepuesto'))
                            )
-
 
 
 Base.metadata.create_all(engine)
