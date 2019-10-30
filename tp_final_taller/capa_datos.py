@@ -29,6 +29,7 @@ class Usuario(Base):
     autos = relationship("Auto")
     reparaciones = relationship("Reparacion")
     hojas = relationship("HojaDeParte")
+    factura = relationship("Facturas")
 
 
 class Auto(Base):
