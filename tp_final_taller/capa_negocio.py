@@ -1,5 +1,9 @@
 from sqlalchemy.orm import sessionmaker
+from ebaysdk.finding import Connection as finding
+from bs4 import BeautifulSoup
+import requests
 from datos import *
+
 
 Base = declarative_base()
 engine = create_engine('mysql://root:852456ale@localhost:3306/python')
@@ -7,6 +11,42 @@ Base.metadata.bind = engine
 DBSession = sessionmaker()
 DBSession.bind = engine
 session = DBSession()
+
+def precioDolarHoy():
+    uri_dolar_bcra='https://api.estadisticasbcra.com/usd_of_minorista'
+    token_acceso_bcra = 'BEARER eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MDQxMTE2NTMsInR5cGUiOiJleHRlcm5hbCIsInVzZXIiOiJhbGVqYW5kcm9kb25ub2xhQGhvdG1haWwuY29tIn0.4UyBkeKkuhRxNbkj2jClwh_9B-AJcYzhCUpwEaHU9ZlXSD0zueup3Y51r19rCVSJX9_jUgHuO06e8yptVHUrgg'
+    header = {'Authorization':token_acceso_bcra,'content-type': "application/json"}
+    response = requests.get(uri_dolar_bcra,headers = header)
+    if response.status_code == 200:
+        return
+    else:
+        return 0
+
+
+
+# Keywords = input('what are you searching for? (ex: white piano)\n')
+# api = finding(appid="Alejandr-TPpython-PRD-0b321054e-314c1a32", config_file=None)
+# api_request = { 'keywords': Keywords }
+# response = api.execute('findItemsByKeywords', api_request)
+# soup = BeautifulSoup(response.content,'lxml')
+#
+# totalentries = int(soup.find('totalentries').text)
+# items = soup.find_all('item')
+#
+# for item in items:
+#     cat = item.categoryname.string.lower()
+#     title = item.title.string.lower()
+#     price = int(round(float(item.currentprice.string)))
+#     url = item.viewitemurl.string.lower()
+#
+#     print('________')
+#     print('cat:\n' + cat + '\n')
+#     print('title:\n' + title + '\n')
+#     print('price:\n' + str(price) + '\n')
+#     print('url:\n' + url + '\n')
+#     input(items[1])
+
+
 
 
 def agregar_rol(codRol,descripcion,usuarios):
