@@ -70,7 +70,7 @@ class Factura(Base):
     __tablename__   = 'facturas'
     id_factura      = Column(Integer, primary_key=True, autoincrement=True)
     id_usuario      = Column(Integer, ForeignKey('usuarios.id_usuario'))
-    fecha_emision   = Column(Date, nullable=False)
+    fecha_emision   = Column(Date, nullable=True)
     importe_total   = Column(FLOAT, nullable=False)
     hoja            = relationship("HojaDeParte")
 
@@ -98,8 +98,8 @@ class Proveedor(Base):
 class Tipo_Repuesto(Base):
     __tablename__    = 'tipoderepuestos'
     id_tipoderepuesto  = Column(Integer,primary_key=True, unique=True)
-    descripcion      = Column(String(30), nullable=False)
-    repuesto    = relationship("Repuesto")
+    descripcion        = Column(String(30), nullable=False)
+    repuesto           = relationship("Repuesto")
 
 
 

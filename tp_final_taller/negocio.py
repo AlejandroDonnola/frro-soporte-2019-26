@@ -5,6 +5,8 @@ import requests
 import json
 from datos import *
 import datos
+from mailjet_rest import Client
+import os
 
 
 Base = declarative_base()
@@ -79,7 +81,7 @@ def agregar_usuario(idUsuario,nombre,apellido,dni,email,password,tel,codRol,habi
     return id
 
 def buscar_usuario(id_usuario):
-    usu = session.query(Usuario).filter(Usuario.idUsuario == id_usuario).first()
+    usu = session.query(Usuario).filter(Usuario.id_usuario == id_usuario).first()
     session.commit()
     if usu is None:
         return False
@@ -102,12 +104,12 @@ def agregar_hoja_de_parte(idHoja,idMecanico,patente,costo_manodeObra,idRepuesto,
     id = hoja.idHoja
     return id
 
-def agregar_factura(idFactura,fechaEmision,idHoja,importeTotal):
-    fact = Factura(idFactura,fechaEmision,idHoja,importeTotal)
+def agregar_factura(id_factura,fecha_emision,id_hoja,importe_total):
+    fact = Factura(id_factura,fecha_emision,id_hoja,importe_total)
     session.add(fact)
     session.commit()
     session.refresh(fact)
-    id=fact.idFactura
+    id=fact.id_factura
     return id
 
 def borrar_factura(idFactura):
@@ -119,44 +121,101 @@ def borrar_factura(idFactura):
         session.commit()
         return True
 
-def buscar_factura(idFactura):
-    f = session.query(Factura).filter(Factura.idFactura==idFactura).first()
+def buscar_factura(id_factura):
+    f = session.query(Factura).filter(Factura.id_factura==id_factura).first()
     session.commit()
     if f is None:
         return False
     else:
         return f
 
-def actualizar_factura(idFactura,fechaEmision,idHoja,importeTotal):
-    f = buscar_factura(idFactura)
+def actualizar_factura(id_factura,id_usuario,fecha_emision,importe_total):
+    f = buscar_factura(id_factura)
     if f is False:
         return False
     else:
-        f.fechaEmision  = fechaEmision
-        f.idHoja        = idHoja
-        f.importeTotal  = importeTotal
+        f.fecha_emision = fecha_emision
+        f.id_usuario    = id_usuario
+        f.importe_total = importe_total
         session.commit()
 
 def lista_facturas_usuario(id_usuario):
     u = buscar_usuario(id_usuario)
     if(u!=False):
-        facturas = session.query(Factura).filter(Factura.idUsuario == id_usuario).all()
+        facturas      = session.query(Factura).filter(Factura.idUsuario == id_usuario).all()
         lista_facturas=[]
         for f in facturas:
             lista_facturas.append(f)
         return lista_facturas
     else:
         return False
+
 def lista_facturas():
         facturas = session.query(datos.Factura).all()
         if(facturas!=False):
             lista_facturas=[]
             for f in facturas:
-             print("asd")
-             lista_facturas.append((f.id_factura,f.fecha_emision,f.id_usuario,f.importe_total))
+             x=buscar_usuario(f.id_usuario)
+             lista_facturas.append((f.id_factura,f.fecha_emision, str(x.nombre)+','+str(x.apellido),x.dni,f.importe_total))
+            print(lista_facturas)
             return lista_facturas
         else:
             return False
+
+def lista_facturas_sin_emitir():
+        facturas = session.query(datos.Factura).filter(Factura.fecha_emision == None ).all()
+        if(facturas!=False):
+            lista_facturas=[]
+            for f in facturas:
+             x=buscar_usuario(f.id_usuario)
+             lista_facturas.append((f.id_factura, str(x.nombre)+','+str(x.apellido),x.dni,f.importe_total))
+            return lista_facturas
+        else:
+            return False
+
+def lista_factura_hojas(id_factura):
+        hojas = session.query(datos.HojaDeParte).filter(HojaDeParte.id_factura == id_factura ).all()
+        if(hojas!=False):
+            lista_hojas=[]
+            for h in hojas:
+             x=buscar_usuario(h.id_mecanico)
+             lista_hojas.append((h.id_hoja, str(x.nombre)+','+str(x.apellido),x.dni,h.id_patente,h.costo_mano_de_obra))
+            print(lista_hojas)
+            return lista_hojas
+        else:
+            return False
+
+def emitir_mensaje(id_usuario):
+    x = buscar_usuario(id_usuario)
+    api_key = '08821a1670de40db3d763935decce996'
+    api_secret = 'd6a68d8169f451d2403a8b62e33deba8'
+    mailjet = Client(auth=(api_key, api_secret), version='v3.1')
+    data = {
+      'Messages': [
+        {
+          "From": {
+            "Email": "alejandrodonnola@hotmail.com",
+            "Name": "Alejandro"
+          },
+          "To": [
+            {
+              "Email": x.email,
+              "Name": "Alejandro"
+            }
+          ],
+          "Subject": "Greetings from Mailjet.",
+          "TextPart": "My first Mailjet email",
+          "HTMLPart": "<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!",
+          "CustomID": "AppGettingStartedTest"
+        }
+      ]
+    }
+    result = mailjet.send.create(data=data)
+    if result.status_code =='200':
+      return result.json()
+    else:
+      return result.status_code
+
 
 
 def agregar_reparacion(idReparacion,patente,idMecanico,fechaIngreso,fechaSalida,estado):
@@ -166,6 +225,7 @@ def agregar_reparacion(idReparacion,patente,idMecanico,fechaIngreso,fechaSalida,
     session.refresh(rep)
     id=rep.idReparacion
     return id
+
 def agregar_proveedor():
 
     return 0

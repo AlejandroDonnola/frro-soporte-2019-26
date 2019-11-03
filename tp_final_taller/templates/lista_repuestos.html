@@ -8,28 +8,24 @@
     <meta name="generator" content="Jekyll v3.8.5">
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/cover/">
     <!-- Bootstrap core CSS -->
-
-  <link href="{{ url_for('static', filename='style/css/bootstrap.min.css') }}"   type = "text/css" rel="stylesheet">
+ <link href="{{ url_for('static', filename='style/css/bootstrap.min.css') }}"   type = "text/css" rel="stylesheet">
 <link rel="stylesheet" href="{{ url_for('static', filename='style/css/bootstrap.css') }}" >
-
   <link href= "{{ url_for('static', filename='style/') }}"   type = "text/css" rel="stylesheet">
 </head>
 <body>
 
+<a href="/facturacion"><button type="submit"  class="btn btn-primary"  name= btnMenuLF  value="Volver">Volver</button></a>
+
 <form action="/menucontroladorLF" method = 'POST'>
-<button type="submit" class="btn btn-primary"  name= btnMenuLF  value="Volver">Volver</button>
-  <button type="submit" class="btn btn-secondary" name= btnMenuLF  value="Agregar">Agregar factura</button>
-  <button type="submit" class="btn btn-secondary" name= btnMenuLF  value="Emitir">Facturas sin emitir</button>
 </form>
 
 <table class="table table-striped">
   <thead>
   <tr>
-      <th scope="col">Facturas</th>
+      <th scope="col">Facturas sin emitir</th>
     </tr>
     <tr>
       <th scope="col">Nro</th>
-      <th scope="col">Fecha emisión</th>
       <th scope="col">Cliente</th>
       <th scope="col">DNI</th>
       <th scope="col">Importe total</th>
@@ -43,12 +39,9 @@
       <td>{{factura.1}}</td>
       <td>{{factura.2}}</td>
       <td>{{factura.3}}</td>
-      <td>{{factura.4}}</td>
+
       <td>
-        <a href="facturacion/facturahojas/{{factura.0}}"><button type="Button" class="btn btn-info">Ver hojas</button></a>
-        {%if factura.1 is none%}
-        <a href="/facturacion/emitir/{{factura.0}}"><button  type="Button" class="btn btn-success">Emitir</button></a>
-        {%endif %}
+        <a href="/facturacion/facturahojas/{{factura.0}}"><button type="Button" class="btn btn-info">Ver hojas</button></a>
       </td>
     </tr>
     {%endfor%}
