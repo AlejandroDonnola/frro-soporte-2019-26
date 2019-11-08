@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/cover/">
+    <!-- Bootstrap core CSS -->
+
+  <link href="{{ url_for('static', filename='style/css/bootstrap.min.css') }}"   type = "text/css" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style/css/bootstrap.css') }}" >
+
+  <link href= "{{ url_for('static', filename='style/') }}"   type = "text/css" rel="stylesheet">
+
+</head>
+<body>
+
+<form action="/controladorrepuesto" method="POST">
+   <h2>Agregar repuesto importado</h2>
+ &nbsp
+  <div class="row">
+       <div class="col">
+      ID Hoja:  &nbsp <input type="text" class="form-control"  name="id_hoja" value="{{id_hoja}}" readonly>
+    </div>
+  </div>
+ &nbsp
+
+    &nbsp
+  <div class="row">
+       <div class="col">
+    <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <label class="input-group-text" for="inputGroupSelect01">Repuestos</label>
+  </div>
+  <select class="custom-select" id="inputGroupSelect01" name = "Repuestos">
+    <option selected>Elegir repuesto</option>
+      {%for r in repuestos%}
+    <option value="{{r.4}}">{{r.1}} ${{r.2}}</option>
+      {%endfor%}
+
+  </select>
+</div>
+       </div>
+
+      <div class="col">
+     Cantidad:  &nbsp <input type="text" class="form-control"  name="cantidad" >
+    </div>
+  </div>
+
+
+    <div align="center" >
+       <button type="submit"  value="{{id_hoja}}" name = "btnEmitir" class="btn btn-success">Confirmar</button>
+    <a href="/hoja/{{id_hoja}}/repuestos"><button type="Button" class="btn btn-danger">Cancelar</button></a>
+   </div>
+</form>
+
+
+</body>
+
+</html>

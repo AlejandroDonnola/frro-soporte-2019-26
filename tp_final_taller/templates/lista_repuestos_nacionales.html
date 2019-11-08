@@ -7,16 +7,37 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.5">
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/cover/">
+
+
+
     <!-- Bootstrap core CSS -->
  <link href="{{ url_for('static', filename='style/css/bootstrap.min.css') }}"   type = "text/css" rel="stylesheet">
 <link rel="stylesheet" href="{{ url_for('static', filename='style/css/bootstrap.css') }}" >
   <link href= "{{ url_for('static', filename='style/') }}"   type = "text/css" rel="stylesheet">
+
 </head>
 <body>
-
-<a href="/facturacion"><button type="submit"  class="btn btn-primary"  name= btnMenuLF  value="Volver">Volver</button></a>
-
 <form action="/menucontroladorLF" method = 'POST'>
+    <a href="/menu"><button type="submit"  class="btn btn-primary"  name= btnMenuLF  value="Volver">Volver</button></a>
+    <a href="/repuestos/importados"><button type="button"  class="btn btn-secondary">Importados</button></a>
+</form>
+ &nbsp
+<div class="row">
+       <div class="col">
+           <select class="browser-default custom-select">
+  <option selected>Categorias</option>
+  <option value="1">LLantas</option>
+  <option value="2">Volantes</option>
+</select>
+    </div>
+    <div class="col">
+<a href=""><button type="Button" class="btn btn-info">Buscar</button></a>
+    </div>
+  </div>
+
+
+<form action="/repuestosbuscar" method = 'POST'>
+
 </form>
 
 <table class="table table-striped">
@@ -26,25 +47,24 @@
     </tr>
     <tr>
       <th scope="col">Nro</th>
-      <th scope="col">Cliente</th>
-      <th scope="col">DNI</th>
-      <th scope="col">Importe total</th>
-      <th scope="col">Operaciones</th>
+        <th scope="col">Categoria</th>
+      <th scope="col">Descripcion</th>
+      <th scope="col">Stock</th>
+      <th scope="col">$ Precio unitario</th>
     </tr>
   </thead>
   <tbody>
-  {%for factura in listafacturas%}
+  {%for factura in listarepuestos%}
     <tr>
-      <th scope="row">{{factura.0}}</th>
+     <th scope="row">{{loop.index}}</th>
+        <td style="display:none">{{factura.0}}</td>
       <td>{{factura.1}}</td>
       <td>{{factura.2}}</td>
       <td>{{factura.3}}</td>
+        <td>{{factura.4}}</td>
 
       <td>
         <a href="/facturacion/facturahojas/{{factura.0}}"><button type="Button" class="btn btn-info">Ver hojas</button></a>
-          {%if factura.1 is none and factura.3 > 0 %}
-        <a href="/facturacion/emitir/{{factura.0}}"><button  type="Button" class="btn btn-success">Emitir</button></a>
-        {%endif %}
       </td>
     </tr>
     {%endfor%}
@@ -55,3 +75,4 @@
 </body>
 
 </html>
+

@@ -7,7 +7,7 @@ from sqlalchemy.engine import create_engine
 
 
 Base = declarative_base()
-engine = create_engine('mysql://root:852456ale@localhost:3306/python')
+engine = create_engine('mysql://root:852456ale@localhost:3306/taller_python')
 Base.metadata.bind = engine
 
 
@@ -54,6 +54,8 @@ class Repuesto(Base):
     stock            = Column(Integer, nullable=False)
     punto_pedido     = Column(Integer, nullable=True)
     precio_unitario  = Column(FLOAT, nullable=False)
+    relationship("Hoja_Repuesto")
+    relationship("Proveedor_Repuestos")
 
 
 
@@ -64,6 +66,7 @@ class HojaDeParte(Base):
     id_mecanico        = Column(Integer, ForeignKey('usuarios.id_usuario'), nullable=False)
     id_patente         = Column(String(30), ForeignKey('autos.id_patente'), nullable=False)
     costo_mano_de_obra = Column(FLOAT, nullable=False)
+    relationship("Hoja_Repuesto")
 
 
 class Factura(Base):
@@ -73,7 +76,6 @@ class Factura(Base):
     fecha_emision   = Column(Date, nullable=True)
     importe_total   = Column(FLOAT, nullable=False)
     hoja            = relationship("HojaDeParte")
-
 
 
 class Reparacion(Base):
@@ -94,6 +96,7 @@ class Proveedor(Base):
     tel          = Column(String(30), nullable=True)
     direccion    = Column(String(30), nullable=True)
     email        = Column(String(30), nullable=False)
+    relationship("Proveedor_Repuesto")
 
 class Tipo_Repuesto(Base):
     __tablename__    = 'tipoderepuestos'
@@ -101,18 +104,18 @@ class Tipo_Repuesto(Base):
     descripcion        = Column(String(30), nullable=False)
     repuesto           = relationship("Repuesto")
 
+class Hoja_Repuesto(Base):
+    __tablename__    = 'hojarepuesto'
+    id_repuesto= Column(Integer, ForeignKey('repuestos.id_repuesto'),primary_key=True)
+    id_hoja    = Column( Integer, ForeignKey('hojasdeparte.id_hoja'),primary_key=True)
+    cantidad   =Column(Integer)
+    precio_total = Column(FLOAT)
 
+class Proveedor_Repuesto(Base):
+    __tablename__ = 'proveedorrepuesto'
+    id_cuit    =Column(Integer, ForeignKey('proveedores.id_cuit'),primary_key=True)
+    id_repuesto=Column(Integer, ForeignKey('repuestos.id_repuesto'),primary_key=True)
 
-hoja_repuesto = Table('hojaRepuesto', Base.metadata,
-            Column('id_repuesto',Integer, ForeignKey('repuestos.id_repuesto')),
-            Column('id_hoja', Integer, ForeignKey('hojasdeparte.id_hoja')),
-            Column('cantidad', Integer),
-            Column('precio_total',FLOAT))
-
-
-proveedor_repuesto = Table('proveedorRepuesto', Base.metadata,
-            Column('cuit_proveedor', Integer, ForeignKey('proveedores.id_cuit')),
-            Column('id_repuesto', Integer, ForeignKey('repuestos.id_repuesto')))
 
 
 Base.metadata.create_all(engine)

@@ -17,38 +17,38 @@
 </head>
 <body>
 
-<form action="/controladoremision" method="POST">
-   <h2>Emisión de factura</h2>
+<form action="/controladorhojas" method="POST">
+   <h2>Agregar factura</h2>
+ &nbsp
+  <div class="row">
+      <div class="col">
+      Nro Factura:<input type="text" class="form-control"  value="{{id_factura}}" name="id_factura" readonly>
+    </div>
+       <div class="col">
+      ID Cliente:<input type="text" class="form-control" value="{{id_cliente}}" name="id_usuario" readonly>
+    </div>
+  </div>
+     &nbsp
     <div class="row">
-    <div class="col">
-      Nombre<input type="text" class="form-control" placeholder="Nombre" value="{{usuario_nombre}}" readonly>
+      <div class="col">
+      Patente:<input type="text" class="form-control"  value="{{id_patente}}" name="id_patente" readonly>
     </div>
-    <div class="col">
-      Apellido<input type="text" class="form-control" placeholder="Apellido" value="{{usuario_apellido}}" readonly>
-    </div>
-
-  </div>
-  <div class="row">
        <div class="col">
-      DNI:<input type="text" class="form-control" placeholder="DNI" value="{{usuario_dni}}" readonly>
-    </div>
-    <div class="col">
-      Fecha de emision:<input type="text" class="form-control" placeholder="Fecha emision" value ={{fecha}} readonly>
+      ID Mecanico:<input type="text" class="form-control"  name="id_mecanico">
     </div>
   </div>
+     <div class="row">
+      <div class="col">
+      Costo mano de obra:<input type="text" class="form-control"   name="costo_mano_de_obra" >
     </div>
-  <div class="row">
-       <div class="col">
-      Importe total:<input type="text" class="form-control"  value="{{importe}}" readonly>
-    </div>
-  </div>
+     </div>
 
-  &nbsp;
-
-   <div align="center" >
+ &nbsp
+    <div align="center" >
        <button type="submit" value="{{id_factura}}"  name = "btnEmitir" class="btn btn-success">Confirmar</button>
     <a href="/facturacion"><button type="Button" class="btn btn-danger">Cancelar</button></a>
    </div>
+
 
 </form>
 

@@ -17,35 +17,16 @@
 </head>
 <body>
 
-<form action="/controladoremision" method="POST">
-   <h2>Emisión de factura</h2>
-    <div class="row">
-    <div class="col">
-      Nombre<input type="text" class="form-control" placeholder="Nombre" value="{{usuario_nombre}}" readonly>
-    </div>
-    <div class="col">
-      Apellido<input type="text" class="form-control" placeholder="Apellido" value="{{usuario_apellido}}" readonly>
-    </div>
-
-  </div>
+<form action="/controladorfactura" method="POST">
+   <h2>Agregar factura</h2>
+ &nbsp
   <div class="row">
        <div class="col">
-      DNI:<input type="text" class="form-control" placeholder="DNI" value="{{usuario_dni}}" readonly>
-    </div>
-    <div class="col">
-      Fecha de emision:<input type="text" class="form-control" placeholder="Fecha emision" value ={{fecha}} readonly>
+      ID Cliente:  &nbsp <input type="text" class="form-control" placeholder="ID Cliente" name="id_usuario">
     </div>
   </div>
-    </div>
-  <div class="row">
-       <div class="col">
-      Importe total:<input type="text" class="form-control"  value="{{importe}}" readonly>
-    </div>
-  </div>
-
-  &nbsp;
-
-   <div align="center" >
+ &nbsp
+    <div align="center" >
        <button type="submit" value="{{id_factura}}"  name = "btnEmitir" class="btn btn-success">Confirmar</button>
     <a href="/facturacion"><button type="Button" class="btn btn-danger">Cancelar</button></a>
    </div>

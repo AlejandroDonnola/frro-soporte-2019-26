@@ -15,35 +15,34 @@
 <body>
 
 
-<a href="/facturacion"><button type="submit"  class="btn btn-primary"  name= btnMenuLF  value="Volver">Volver</button></a>
-<form action="/hojas" method = 'POST'>
-    <button type="submit" class="btn btn-secondary" name= btnAgregar  value="{{id_factura}}">Agregar hoja</button>
+<a href="/facturacion/facturahojas/{{id_factura}}"><button type="Button"  class="btn btn-primary"  name= btnMenuLF  value="Volver">Volver</button></a>
+
+<form action="/hoja/{{id_hoja}}/repuestos/agregar" method = 'POST'>
+    <button type="submit" class="btn btn-secondary" name= btnAgregar  value="{{id_hoja}}">Agregar Repuesto</button>
 </form>
 
 <table class="table table-striped">
   <thead>
  <tr>
-      <th scope="col">Hojas de parte</th>
+      <th scope="col">Repuestos de la hoja {{id_hoja}}</th>
     </tr>
     <tr>
       <th scope="col">Nro</th>
-      <th scope="col">Mecanico</th>
-      <th scope="col">DNI</th>
-      <th scope="col">Vehiculo</th>
-       <th scope="col">Costo mano de obra</th>
+      <th scope="col">Categoria</th>
+      <th scope="col">Descripcion</th>
+      <th scope="col">Precio unitario</th>
+       <th scope="col">Operaciones</th>
     </tr>
   </thead>
   <tbody>
-  {%for hoja in listahojas%}
+  {%for r in repuestos%}
     <tr>
-      <th scope="row">{{loop.index}}</th>
-        <td style="display:none">{{hoja.0}}</td>
-      <td>{{hoja.1}}</td>
-      <td>{{hoja.2}}</td>
-      <td>{{hoja.3}}</td>
-        <td>{{hoja.4}}</td>
+      <th scope="row">{{r.0}}</th>
+      <td>{{r.1}}</td>
+      <td>{{r.2}}</td>
+      <td>$ {{r.5}}</td>
       <td>
-       <a href="/hoja/{{hoja.0}}/repuestos"><button  type="Button" class="btn btn-info">Ver repuestos</button></a>
+          <a href="/hoja/{{id_hoja}}/repuestos/eliminar/{{r.0}}"> <button type="button" class="btn btn-danger">Eliminar</button></a>
       </td>
     </tr>
     {%endfor%}
