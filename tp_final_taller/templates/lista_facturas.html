@@ -15,17 +15,10 @@
   <link href= "{{ url_for('static', filename='style/') }}"   type = "text/css" rel="stylesheet">
 </head>
 <body>
-
-<form action="/menucontroladorLF" method = 'POST'>
-<button type="submit" class="btn btn-primary"  name= btnMenuLF  value="Volver">Volver</button>
-  <button type="submit" class="btn btn-secondary" name= btnMenuLF  value="Agregar">Agregar factura</button>
-</form>
-
+<h1 style="text-align: center;">Listado de Facturas</h1>
+&nbsp;
 <table class="table table-striped">
   <thead>
-  <tr>
-      <th scope="col">Facturas</th>
-    </tr>
     <tr>
       <th scope="col">Nro</th>
       <th scope="col">Fecha emisión</th>
@@ -53,6 +46,11 @@
     {%endfor%}
   </tbody>
 </table>
+
+<form action="/menucontroladorLF" method = 'POST' style="text-align: center;">
+  <button type="submit" class="btn btn-primary"  name= btnMenuLF  value="Volver">Volver</button>
+    <button type="submit" class="btn btn-secondary" name= btnMenuLF  value="Agregar">Agregar factura</button>
+  </form>
 
 
 </body>

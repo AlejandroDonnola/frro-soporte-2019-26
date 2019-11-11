@@ -92,7 +92,7 @@ def update_factura():
 
 @app.route('/repuestos')
 def repuestos():
-    return render_template('lista_repuestos_nacionales.html',listarepuestos=negocio.lista_repuestos_nacionales())
+    return render_template('lista_repuestos_nacionales.html',listarepuestos=negocio.lista_repuestos_nacionales(),listatipos=negocio.lista_tipos_repuestos())
 
 @app.route('/repuestoscategoriaimportado', methods = ['POST'])
 def repuestoscategoriaimportado():
@@ -106,7 +106,7 @@ def repuestoscategoriaimportado():
 
 @app.route('/repuestos/importados')
 def repuestos_importados():
-    return render_template('lista_repuestos_importado.html')
+    return render_template('lista_repuestos_importado.html',listatipos=negocio.lista_tipos_repuestos())
 
 @app.route('/repuestos/importados/llantas')
 def repuestos_importados_llantas():

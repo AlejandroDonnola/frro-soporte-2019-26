@@ -17,17 +17,19 @@
 
 </head>
 <body>
+  <h1 style="text-align: center;">Lista de Repuestos Nacionales</h1>
 <form action="/menucontroladorLF" method = 'POST'>
-    <a href="/menu"><button type="submit"  class="btn btn-primary"  name= btnMenuLF  value="Volver">Volver</button></a>
-    <a href="/repuestos/importados"><button type="button"  class="btn btn-secondary">Importados</button></a>
+    <a href="/menu"><button type="submit"  class="btn btn-primary"  name= btnMenuLF  value="Volver">Volver al menú</button></a>
+    <a href="/repuestos/importados"><button type="button"  class="btn btn-secondary">Repuestos Importados</button></a>
 </form>
  &nbsp
 <div class="row">
        <div class="col">
            <select class="browser-default custom-select">
   <option selected>Categorias</option>
-  <option value="1">LLantas</option>
-  <option value="2">Volantes</option>
+  {%for tipo in listatipos%}
+  <option value="{{tipo.0}}">{{tipo.1}}</option>
+  {%endfor%}
 </select>
     </div>
     <div class="col">
@@ -51,6 +53,7 @@
       <th scope="col">Descripcion</th>
       <th scope="col">Stock</th>
       <th scope="col">$ Precio unitario</th>
+      <th scope="col">Operaciones</th>
     </tr>
   </thead>
   <tbody>

@@ -17,26 +17,27 @@
 
 </head>
 <body>
-<form action="/menucontroladorLF" method = 'POST'>
-    <a href="/menu"><button type="submit"  class="btn btn-primary"  name= btnMenuLF  value="Volver">Volver</button></a>
-</form>
- &nbsp
-
-<form action="/repuestoscategoriaimportado" method = 'POST'>
-
-<div class="row">
-       <div class="col">
-           <select name="Categorias" class="browser-default custom-select">
-  <option selected>Categorias</option>
-  <option  value="1">LLantas</option>
-  <option  value="2">Volantes</option>
-</select>
+  <h1 style="text-align: center;">Lista de Repuestos Importados</h1>
+  <form action="/menucontroladorLF" method = 'POST'>
+    <a href="/menu"><button type="submit"  class="btn btn-primary"  name= btnMenuLF  value="Volver">Volver al menú</button></a>
+    <a href="/repuestos"><button type="button" class="btn btn-secondary">Repuestos Nacionales</button></a>
+  </form>
+  &nbsp
+  <form action="/repuestoscategoriaimportado" method = 'POST'>
+    <div class="row">
+      <div class="col">
+        <select name="Categorias" class="browser-default custom-select">
+          <option selected>Categorias</option>
+          {%for tipo in listatipos%}
+          <option value="{{tipo.0}}">{{tipo.1}}</option>
+          {%endfor%}
+        </select>
+      </div>
+      <div class="col">
+        <a href=""><button type="submit" class="btn btn-info">Buscar</button></a>
+      </div>
     </div>
-    <div class="col">
-<a href=""><button type="submit" class="btn btn-info">Buscar</button></a>
-    </div>
-  </div>
-</form>
+  </form>
 
 <table class="table table-striped">
   <thead>

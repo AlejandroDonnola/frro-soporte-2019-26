@@ -51,6 +51,7 @@ class Repuesto(Base):
     id_repuesto     = Column(Integer, primary_key=True, autoincrement=True)
     id_tipo_repuesto = Column(Integer,ForeignKey('tipoderepuestos.id_tipoderepuesto'))
     descripcion      = Column(String(30), nullable=False)
+    origen           = Column(String(30), nullable=False) # 'Nacional' / 'Importado'
     stock            = Column(Integer, nullable=False)
     punto_pedido     = Column(Integer, nullable=True)
     precio_unitario  = Column(FLOAT, nullable=False)

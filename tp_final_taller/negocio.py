@@ -286,6 +286,15 @@ def lista_clientes():
         return lista_clientes
     else:
         return False
+def lista_tipos_repuestos():
+    tipos = session.query(datos.Tipo_Repuesto).all()
+    if(tipos!=False):
+        lista_tipos=[]
+        for t in tipos:
+            lista_tipos.append((t.id_tipoderepuesto,t.descripcion))
+        return lista_tipos
+    else:
+        return False
 
 
 
