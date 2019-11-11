@@ -72,13 +72,13 @@ def controladoremision():
 
 @app.route('/factura', methods = ['POST'] )
 def factura():
-    return render_template("form_factura.html")
+    return render_template("form_factura.html",listaclientes=negocio.lista_clientes())
 
 @app.route('/controladorfactura', methods = ['POST'] )
 def controladorfactura():
     if request.method == 'POST':
-        if request.form["id_usuario"] != None:
-             negocio.agregar_factura(request.form["id_usuario"])
+        if request.form["id_cliente"] != None:
+             negocio.agregar_factura(request.form["id_cliente"])
              return redirect('/facturacion')
 
 

@@ -20,14 +20,38 @@
 <form action="/controladorfactura" method="POST">
    <h2>Agregar factura</h2>
  &nbsp
-  <div class="row">
-       <div class="col">
-      ID Cliente:  &nbsp <input type="text" class="form-control" placeholder="ID Cliente" name="id_usuario">
-    </div>
-  </div>
+
+ <table class="table table-striped">
+  <thead>
+  <tr>
+      <th scope="col">Clientes</th>
+    </tr>
+    <tr>
+      <th scope="col">Nro</th>
+      <th scope="col">Cliente</th>
+      <th scope="col">DNI</th>
+      <th scope="col">Email</th>
+      <th scope="col">Operaciones</th>
+    </tr>
+  </thead>
+  <tbody>
+  {%for cliente in listaclientes%}
+    <tr>
+      <th scope="row">{{cliente.0}}</th>
+      <td>{{cliente.1}}</td>
+      <td>{{cliente.2}}</td>
+      <td>{{cliente.3}}</td>
+      <td>
+        <button type="submit" value="{{cliente.0}}"  name = "id_cliente" class="btn btn-success">Seleccionar</button>
+      </td>
+    </tr>
+    {%endfor%}
+  </tbody>
+</table>
+
  &nbsp
     <div align="center" >
-       <button type="submit" value="{{id_factura}}"  name = "btnEmitir" class="btn btn-success">Confirmar</button>
+       <button type="submit" value="{{id_factura}}"  name = "btnEmitir" class="btn btn-primary">Agregar cliente</button>
     <a href="/facturacion"><button type="Button" class="btn btn-danger">Cancelar</button></a>
    </div>
 

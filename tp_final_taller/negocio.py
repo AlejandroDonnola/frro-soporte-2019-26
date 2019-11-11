@@ -277,7 +277,15 @@ def agregar_repuesto_importado(descripcion,precio_unitario):
     session.refresh(r)
     id = r.id_repuesto
     return id
-
+def lista_clientes():
+    clientes = session.query(datos.Usuario).filter(datos.Usuario.id_rol == 3).all()
+    if( clientes!=False):
+        lista_clientes=[]
+        for c in clientes:
+            lista_clientes.append((c.id_usuario,str(c.apellido)+', '+str(c.nombre),c.dni,c.email))
+        return lista_clientes
+    else:
+        return False
 
 
 
