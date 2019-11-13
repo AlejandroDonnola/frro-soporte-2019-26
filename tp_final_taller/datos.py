@@ -4,8 +4,6 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.schema import PrimaryKeyConstraint
 from sqlalchemy.engine import create_engine
 
-
-
 Base = declarative_base()
 engine = create_engine('mysql://root:852456ale@localhost:3306/taller_python')
 Base.metadata.bind = engine
@@ -51,13 +49,11 @@ class Repuesto(Base):
     id_repuesto     = Column(Integer, primary_key=True, autoincrement=True)
     id_tipo_repuesto = Column(Integer,ForeignKey('tipoderepuestos.id_tipoderepuesto'))
     descripcion      = Column(String(30), nullable=False)
-    origen           = Column(String(30), nullable=False) # 'Nacional' / 'Importado'
     stock            = Column(Integer, nullable=False)
     punto_pedido     = Column(Integer, nullable=True)
     precio_unitario  = Column(FLOAT, nullable=False)
     relationship("Hoja_Repuesto")
     relationship("Proveedor_Repuestos")
-
 
 
 class HojaDeParte(Base):
@@ -99,11 +95,13 @@ class Proveedor(Base):
     email        = Column(String(30), nullable=False)
     relationship("Proveedor_Repuesto")
 
+
 class Tipo_Repuesto(Base):
     __tablename__    = 'tipoderepuestos'
     id_tipoderepuesto  = Column(Integer,primary_key=True, unique=True)
     descripcion        = Column(String(30), nullable=False)
     repuesto           = relationship("Repuesto")
+
 
 class Hoja_Repuesto(Base):
     __tablename__    = 'hojarepuesto'
@@ -112,11 +110,11 @@ class Hoja_Repuesto(Base):
     cantidad   =Column(Integer)
     precio_total = Column(FLOAT)
 
+
 class Proveedor_Repuesto(Base):
     __tablename__ = 'proveedorrepuesto'
     id_cuit    =Column(Integer, ForeignKey('proveedores.id_cuit'),primary_key=True)
     id_repuesto=Column(Integer, ForeignKey('repuestos.id_repuesto'),primary_key=True)
-
 
 
 Base.metadata.create_all(engine)

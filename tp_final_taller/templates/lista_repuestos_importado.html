@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -8,67 +8,58 @@
     <meta name="generator" content="Jekyll v3.8.5">
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/cover/">
 
-
-
     <!-- Bootstrap core CSS -->
- <link href="{{ url_for('static', filename='style/css/bootstrap.min.css') }}"   type = "text/css" rel="stylesheet">
-<link rel="stylesheet" href="{{ url_for('static', filename='style/css/bootstrap.css') }}" >
-  <link href= "{{ url_for('static', filename='style/') }}"   type = "text/css" rel="stylesheet">
-
-</head>
-<body>
-  <h1 style="text-align: center;">Lista de Repuestos Importados</h1>
-  <form action="/menucontroladorLF" method = 'POST'>
-    <a href="/menu"><button type="submit"  class="btn btn-primary"  name= btnMenuLF  value="Volver">Volver al menú</button></a>
-    <a href="/repuestos"><button type="button" class="btn btn-secondary">Repuestos Nacionales</button></a>
-  </form>
-  &nbsp
-  <form action="/repuestoscategoriaimportado" method = 'POST'>
-    <div class="row">
-      <div class="col">
-        <select name="Categorias" class="browser-default custom-select">
-          <option selected>Categorias</option>
-          {%for tipo in listatipos%}
-          <option value="{{tipo.0}}">{{tipo.1}}</option>
-          {%endfor%}
-        </select>
+    <link href="{{ url_for('static', filename='style/css/bootstrap.min.css') }}"   type = "text/css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/css/bootstrap.css') }}" >
+    <link href= "{{ url_for('static', filename='style/') }}"   type = "text/css" rel="stylesheet">
+    <title>Repuestos - Taller mecánico</title>
+  </head>
+  <body>
+    <h1 style="text-align: center;">Repuestos</h1>
+    &nbsp;
+    <form action="/repuestoscategoriaimportado" method = 'POST'>
+      <div class="row">
+        <div class="col">
+          <select name="Categorias" class="browser-default custom-select">
+            <option selected>Categorias</option>
+            <option value="1">Wheels</option>
+            <option value="2">Steering wheel</option>
+          </select>
+        </div>
+        <div class="col">
+          <a href=""><button type="submit" class="btn btn-info">Buscar</button></a>
+        </div>
       </div>
-      <div class="col">
-        <a href=""><button type="submit" class="btn btn-info">Buscar</button></a>
-      </div>
-    </div>
-  </form>
-
-<table class="table table-striped">
-  <thead>
-  <tr>
-      <th scope="col">Facturas sin emitir</th>
-    </tr>
-    <tr>
-      <th scope="col">Nro</th>
-        <th scope="col">Categoria</th>
-      <th scope="col">Descripcion</th>
-      <th scope="col">Precio unitario</th>
-        <th scope="col">Operaciones</th>
-    </tr>
-  </thead>
-  <tbody>
-  {%for repuesto in listarepuestos%}
-    <tr>
-     <th scope="row">{{loop.index}}</th>
-        <td>{{repuesto.0}}</td>
-      <td>{{repuesto.1}}</td>
-      <td>$ {{repuesto.2}}</td>
-      <td>
-        <a href="{{repuesto.4}}"><button type="Button" class="btn btn-info">Ver url</button></a>
-      </td>
-    </tr>
-    {%endfor%}
-  </tbody>
-</table>
-
-
-</body>
-
+    </form>
+    &nbsp;
+    <h4>Lista de Repuestos Importados</h4>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Nro</th>
+          <th scope="col">Categoria</th>
+          <th scope="col">Descripcion</th>
+          <th scope="col">Precio unitario</th>
+          <th scope="col">Operaciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%for repuesto in listarepuestos%}
+        <tr>
+          <th scope="row">{{loop.index}}</th>
+          <td>{{repuesto.0}}</td>
+          <td>{{repuesto.1}}</td>
+          <td>$ {{repuesto.2}}</td>
+          <td>
+            <a href="{{repuesto.3}}"><button type="Button" class="btn btn-info">Ver url</button></a>
+          </td>
+        </tr>
+        {%endfor%}
+      </tbody>
+    </table>
+    <form action="/menucontroladorLF" method = 'POST' style="text-align: center;">
+      <a href="/menu"><button type="submit"  class="btn btn-primary"  name= btnMenuLF  value="Volver">Volver al menú</button></a>
+      <a href="/repuestos"><button type="button" class="btn btn-secondary">Repuestos Nacionales</button></a>
+    </form>
+  </body>
 </html>
-

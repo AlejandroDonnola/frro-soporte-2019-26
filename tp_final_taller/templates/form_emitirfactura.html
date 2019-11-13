@@ -1,58 +1,57 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.5">
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/cover/">
+    
     <!-- Bootstrap core CSS -->
-
-  <link href="{{ url_for('static', filename='style/css/bootstrap.min.css') }}"   type = "text/css" rel="stylesheet">
-<link rel="stylesheet" href="{{ url_for('static', filename='style/css/bootstrap.css') }}" >
-
-  <link href= "{{ url_for('static', filename='style/') }}"   type = "text/css" rel="stylesheet">
-
-</head>
-<body>
-
-<form action="/controladoremision" method="POST">
-   <h2>Emisión de factura</h2>
-    <div class="row">
-    <div class="col">
-      Nombre<input type="text" class="form-control" placeholder="Nombre" value="{{usuario_nombre}}" readonly>
-    </div>
-    <div class="col">
-      Apellido<input type="text" class="form-control" placeholder="Apellido" value="{{usuario_apellido}}" readonly>
-    </div>
-
-  </div>
-  <div class="row">
-       <div class="col">
-      DNI:<input type="text" class="form-control" placeholder="DNI" value="{{usuario_dni}}" readonly>
-    </div>
-    <div class="col">
-      Fecha de emision:<input type="text" class="form-control" placeholder="Fecha emision" value ={{fecha}} readonly>
-    </div>
-  </div>
-    </div>
-  <div class="row">
-       <div class="col">
-      Importe total:<input type="text" class="form-control"  value="{{importe}}" readonly>
-    </div>
-  </div>
-
-  &nbsp;
-
-   <div align="center" >
-       <button type="submit" value="{{id_factura}}"  name = "btnEmitir" class="btn btn-success">Confirmar</button>
-    <a href="/facturacion"><button type="Button" class="btn btn-danger">Cancelar</button></a>
-   </div>
-
-</form>
-
-
-</body>
-
+    <link href="{{ url_for('static', filename='style/css/bootstrap.min.css') }}"   type = "text/css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/css/bootstrap.css') }}" >
+    <link href= "{{ url_for('static', filename='style/') }}"   type = "text/css" rel="stylesheet">
+    <title>Emitir Factura - Taller mecánico</title>
+  </head>
+  <body>
+    <form action="/controladoremision" method="POST">
+      <h2>Emisión de factura</h2>
+      &nbsp;
+      <div class="row">
+        <div class="col">
+          Nombre<input type="text" class="form-control" placeholder="Nombre" value="{{usuario_nombre}}" readonly>
+        </div>
+        <div class="col">
+          Apellido<input type="text" class="form-control" placeholder="Apellido" value="{{usuario_apellido}}" readonly>
+        </div>
+      </div>
+      &nbsp;
+      <div class="row">
+        <div class="col">
+          DNI<input type="text" class="form-control" placeholder="DNI" value="{{usuario_dni}}" readonly>
+        </div>
+        <div class="col">
+          Fecha de emisión<input type="text" class="form-control" placeholder="Fecha emision" value ={{fecha}} readonly>
+        </div>
+      </div>
+      &nbsp;
+      <div class="row">
+        <div class="col">
+          Importe total
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="importe">$</label>
+            </div>
+            <input type="text" class="form-control" id="importe" value="{{importe}}" readonly>
+          </div>           
+        </div>
+      </div>
+      &nbsp;
+      <div align="center">
+        <button type="submit" value="{{id_factura}}" name="btnEmitir" class="btn btn-success">Confirmar</button>
+        <a href="/facturacion" class="btn btn-danger">Cancelar</a>
+      </div>
+    </form>
+  </body>
 </html>

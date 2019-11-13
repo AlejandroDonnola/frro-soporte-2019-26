@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -8,48 +8,43 @@
     <meta name="generator" content="Jekyll v3.8.5">
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/cover/">
     <!-- Bootstrap core CSS -->
-     <link href="{{ url_for('static', filename='style/css/bootstrap.min.css') }}"   type = "text/css" rel="stylesheet">
-<link rel="stylesheet" href="{{ url_for('static', filename='style/css/bootstrap.css') }}" >
-  <link href= "{{ url_for('static', filename='style/') }}"   type = "text/css" rel="stylesheet">
-</head>
-<body>
-
-
-<a href="/facturacion/facturahojas/{{id_factura}}"><button type="Button"  class="btn btn-primary"  name= btnMenuLF  value="Volver">Volver</button></a>
-
-<form action="/hoja/{{id_hoja}}/repuestos/agregar" method = 'POST'>
-    <button type="submit" class="btn btn-secondary" name= btnAgregar  value="{{id_hoja}}">Agregar Repuesto</button>
-</form>
-
-<table class="table table-striped">
-  <thead>
- <tr>
-      <th scope="col">Repuestos de la hoja {{id_hoja}}</th>
-    </tr>
-    <tr>
-      <th scope="col">Nro</th>
-      <th scope="col">Categoria</th>
-      <th scope="col">Descripcion</th>
-      <th scope="col">Precio unitario</th>
-       <th scope="col">Operaciones</th>
-    </tr>
-  </thead>
-  <tbody>
-  {%for r in repuestos%}
-    <tr>
-      <th scope="row">{{r.0}}</th>
-      <td>{{r.1}}</td>
-      <td>{{r.2}}</td>
-      <td>$ {{r.5}}</td>
-      <td>
-          <a href="/hoja/{{id_hoja}}/repuestos/eliminar/{{r.0}}"> <button type="button" class="btn btn-danger">Eliminar</button></a>
-      </td>
-    </tr>
-    {%endfor%}
-  </tbody>
-</table>
-
-
-</body>
-
+    
+    <link href="{{ url_for('static', filename='style/css/bootstrap.min.css') }}"   type = "text/css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/css/bootstrap.css') }}" >
+    <link href= "{{ url_for('static', filename='style/') }}"   type = "text/css" rel="stylesheet">
+    <title>Repuestos - Taller mecánico</title>
+  </head>
+  <body>
+    <h1 style="text-align: center;">Repuestos</h1>
+    &nbsp;
+    <h4>Lista de Repuestos de la hoja {{id_hoja}}</h4>    
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Nro</th>
+          <th scope="col">Categoria</th>
+          <th scope="col">Descripcion</th>
+          <th scope="col">Precio unitario</th>
+          <th scope="col">Operaciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%for r in repuestos%}
+        <tr>
+          <th scope="row">{{r.0}}</th>
+          <td>{{r.1}}</td>
+          <td>{{r.2}}</td>
+          <td>$ {{r.5}}</td>
+          <td>
+            <a href="/hoja/{{id_hoja}}/repuestos/eliminar/{{r.0}}"> <button type="button" class="btn btn-danger">Eliminar</button></a>
+          </td>
+        </tr>
+        {%endfor%}
+      </tbody>
+    </table>
+    <form action="/hoja/{{id_hoja}}/repuestos/agregar" method = 'POST' style="text-align: center;">
+      <a href="/facturacion/facturahojas/{{id_factura}}" class="btn btn-primary">Volver</a>
+      <button type="submit" class="btn btn-secondary" name="btnAgregar" value="{{id_hoja}}">Agregar Repuesto</button>
+    </form>
+  </body>
 </html>
