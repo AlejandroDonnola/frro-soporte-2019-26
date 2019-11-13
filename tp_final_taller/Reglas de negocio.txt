@@ -1,7 +1,0 @@
-Reglas de negocio taller mecanico
-
-Poder crear y emitir y avisar la emision de la factura con la fecha del dia a un cliente.
-
-Poder agregar hojas de parte y repuestos asociados a la factura.
-
-Los repuestos si son importados se multiplican por el precio del dolar actual a travez de un web service.
