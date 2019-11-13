@@ -52,6 +52,7 @@ class Repuesto(Base):
     stock            = Column(Integer, nullable=False)
     punto_pedido     = Column(Integer, nullable=True)
     precio_unitario  = Column(FLOAT, nullable=False)
+    origen           = Column(String(30), nullable=False) # 'Nacional' / 'Importado'
     relationship("Hoja_Repuesto")
     relationship("Proveedor_Repuestos")
 

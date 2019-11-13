@@ -47,11 +47,12 @@
         {%for repuesto in listarepuestos%}
         <tr>
           <th scope="row">{{loop.index}}</th>
-          <td>{{repuesto.0}}</td>
+          <td style="display:none">{{repuesto.0}}</td>
           <td>{{repuesto.1}}</td>
-          <td>$ {{repuesto.2}}</td>
+          <td>{{repuesto.2}}</td>
+          <td>$ {{repuesto.4}}</td>
           <td>
-            <a href="{{repuesto.3}}"><button type="Button" class="btn btn-info">Ver url</button></a>
+            <a href="{{repuesto.6}}"><button type="Button" class="btn btn-info">Ver url</button></a>
           </td>
         </tr>
         {%endfor%}

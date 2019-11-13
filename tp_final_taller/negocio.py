@@ -104,6 +104,17 @@ def buscar_tipo_repuesto(id_tipoderepuesto):
     else:
         return f
 
+def lista_importados():
+    r = session.query(datos.Repuesto).filter(datos.Repuesto.origen=='Importado').all()
+    if(r!=False):
+        lista_repuestos=[]
+        for f in r:
+            x=buscar_tipo_repuesto(f.id_tipo_repuesto)
+            lista_repuestos.append((f.id_repuesto,x.descripcion,f.descripcion,f.stock,f.precio_unitario))
+        return lista_repuestos
+    else:
+        return False    
+
 
 def lista_repuestos_importados(Keyword):
     Keywords = Keyword
@@ -131,7 +142,7 @@ def lista_repuestos_importados(Keyword):
 
 
 def lista_repuestos_nacionales():
-    r = session.query(datos.Repuesto).all()
+    r = session.query(datos.Repuesto).filter(datos.Repuesto.origen=='Nacional').all()
     if(r!=False):
         lista_repuestos=[]
         for f in r:
@@ -238,7 +249,7 @@ def lista_factura_hojas(id_factura):
         lista_hojas=[]
         for h in hojas:
             x=buscar_usuario(h.id_mecanico)
-            lista_hojas.append((h.id_hoja, str(x.nombre)+','+str(x.apellido),x.dni,h.id_patente,h.costo_mano_de_obra))
+            lista_hojas.append((h.id_hoja, str(x.apellido)+', '+str(x.nombre),x.dni,h.id_patente,h.costo_mano_de_obra))
         print(lista_hojas)
         return lista_hojas
     else:
@@ -316,6 +327,7 @@ def agregar_repuesto_importado(descripcion,precio_unitario):
     r.precio_unitario=precio_unitario
     r.id_tipo_repuesto=2
     r.stock=999
+    r.origen='Importado'
     session.add(r)
     session.commit()
     session.refresh(r)

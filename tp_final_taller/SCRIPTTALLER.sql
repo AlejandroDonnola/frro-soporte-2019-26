@@ -234,6 +234,7 @@ CREATE TABLE `repuestos` (
   `stock` int(11) NOT NULL,
   `punto_pedido` int(11) DEFAULT NULL,
   `precio_unitario` float NOT NULL,
+  `origen` varchar(30) NOT NULL,
   PRIMARY KEY (`id_repuesto`),
   KEY `id_tipo_repuesto` (`id_tipo_repuesto`),
   CONSTRAINT `repuestos_ibfk_1` FOREIGN KEY (`id_tipo_repuesto`) REFERENCES `tipoderepuestos` (`id_tipoderepuesto`)
@@ -246,7 +247,7 @@ CREATE TABLE `repuestos` (
 
 LOCK TABLES `repuestos` WRITE;
 /*!40000 ALTER TABLE `repuestos` DISABLE KEYS */;
-INSERT INTO `repuestos` VALUES (1,2,'Llantas1',3,NULL,303.5),(2,2,'Llantas2',3,NULL,555),(3,2,'19 inch ho',999,NULL,11380),(4,2,'10168 ford',999,NULL,12581),(5,2,'22.5 x 8.2',999,NULL,11064),(6,2,'22.5 x 8.2',999,NULL,11064);
+INSERT INTO `repuestos` VALUES (1,2,'Llantas1',3,NULL,303.5,'Nacional'),(2,2,'Llantas2',3,NULL,555,'Nacional'),(3,2,'19 inch ho',999,NULL,11380,'Importado'),(4,2,'10168 ford',999,NULL,12581,'Importado'),(5,2,'22.5 x 8.2',999,NULL,11064,'Importado'),(6,2,'22.5 x 8.2',999,NULL,11064,'Importado');
 /*!40000 ALTER TABLE `repuestos` ENABLE KEYS */;
 UNLOCK TABLES;
 

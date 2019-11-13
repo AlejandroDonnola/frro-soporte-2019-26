@@ -41,7 +41,7 @@
           <th scope="col">Categoria</th>
           <th scope="col">Descripcion</th>
           <th scope="col">Stock</th>
-          <th scope="col">$ Precio unitario</th>
+          <th scope="col">Precio unitario</th>
           <th scope="col">Operaciones</th>
         </tr>
       </thead>
@@ -49,21 +49,21 @@
         {%for repuesto in listarepuestos%}
         <tr>
           <th scope="row">{{loop.index}}</th>
-            <td style="display:none">{{repuesto.0}}</td>
-            <td>{{repuesto.1}}</td>
-            <td>{{repuesto.2}}</td>
-            <td>{{repuesto.3}}</td>
-            <td>{{repuesto.4}}</td>
-            <td>
-              <a href="/facturacion/facturahojas/{{repuesto.0}}"><button type="Button" class="btn btn-info">Ver hojas</button></a>
-            </td>
+          <td style="display:none">{{repuesto.0}}</td>
+          <td>{{repuesto.1}}</td>
+          <td>{{repuesto.2}}</td>
+          <td>{{repuesto.3}}</td>
+          <td>$ {{repuesto.4}}</td>
+          <td>
+            <a href="/facturacion/facturahojas/{{repuesto.0}}"><button type="Button" class="btn btn-info">Ver hojas</button></a>
+          </td>
         </tr>
         {%endfor%}
       </tbody>
     </table>
     <form action="/menucontroladorLF" method='POST' style="text-align: center;">
       <a href="/menu"><button type="submit" class="btn btn-primary" name="btnMenuLF" value="Volver">Volver al menú</button></a>
-      <a href="/repuestos/importados"><button type="button" class="btn btn-secondary">Repuestos Importados</button></a>
+      <a href="/repuestos/importados" class="btn btn-secondary">Repuestos Importados</a>
     </form>
   </body>
 </html>

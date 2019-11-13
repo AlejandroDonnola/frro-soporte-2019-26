@@ -116,7 +116,7 @@ def repuestoscategoriaimportado():
 
 @app.route('/repuestos/importados')
 def repuestos_importados():
-    return render_template('lista_repuestos_importado.html',listatipos=negocio.lista_tipos_repuestos())
+    return render_template('lista_repuestos_importado.html',listatipos=negocio.lista_tipos_repuestos(),listarepuestos=negocio.lista_importados())
 
 
 @app.route('/repuestos/importados/llantas')
@@ -147,9 +147,14 @@ def hojarepuestos(id):
     r=negocio.buscar_hoja_repuestos(int(id))
     id_factura=negocio.buscar_hoja(int(id)).id_factura
     repuestos=[]
+    tipos=negocio.lista_tipos_repuestos()
     for re in r:
         x=negocio.buscar_repuesto(re.id_repuesto)
-        repuestos.append((x.id_repuesto,x.id_tipo_repuesto,x.descripcion,x.stock,x.punto_pedido,x.precio_unitario))
+        for t in tipos:
+            if x.id_tipo_repuesto == t[0]:
+                x.tipo= t[1]
+                break
+        repuestos.append((x.id_repuesto,x.tipo,x.descripcion,x.precio_unitario,re.cantidad,re.precio_total))
     print(repuestos)
     return render_template('lista_hoja_repuestos.html',repuestos= repuestos,id_hoja=id,id_factura=id_factura)
 
