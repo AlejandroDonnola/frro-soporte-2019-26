@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/cover/">
+    
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='style/css/bootstrap.min.css') }}"   type = "text/css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/css/bootstrap.css') }}" >
+    <link href= "{{ url_for('static', filename='style/') }}"   type = "text/css" rel="stylesheet">
+    <title>Agregar Hoja de parte - Taller mecánico</title>
+  </head>
+  <body>
+    <form action="/controladorhojas" method="POST">
+      <h1 style="text-align: center;">Agregar Hoja de parte</h1>
+      &nbsp;
+      <div class="row">
+        <div class="col">
+          Nro Factura:<input type="text" class="form-control"  value="{{id_factura}}" name="id_factura" readonly>
+        </div>
+        <div class="col">
+          ID Cliente:<input type="text" class="form-control" value="{{id_cliente}}" name="id_usuario" readonly>
+        </div>
+      </div>
+      &nbsp;
+      <div class="row">
+        <div class="col">
+          Patente:<input type="text" class="form-control"  value="{{id_patente}}" name="id_patente" readonly>
+        </div>
+        <div class="col">
+          Mecánico:
+          <select class="custom-select" id="inputGroupSelect01" name = "id_mecanico">
+            <option selected>Elegir mecánico</option>
+            {%for m in mecanicos%}
+            <option value="{{m.0}}">{{m.1}}</option>
+            {%endfor%}
+          </select>
+        </div>
+      </div>
+      &nbsp;
+      <div class="row">
+        <div class="col">
+          Costo mano de obra:
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="costo">$</label>
+            </div>
+            <input type="text" class="form-control" name="costo_mano_de_obra" id="costo">
+          </div>
+        </div>
+      </div>
+      &nbsp;
+      <div align="center" >
+        <button type="submit" value="{{id_factura}}" name ="id_factura" class="btn btn-success">Confirmar</button>
+        <a href="/facturacion/facturahojas/{{id_factura}}"><button type="Button" class="btn btn-danger">Cancelar</button></a>
+      </div>
+    </form>
+  </body>
+</html>

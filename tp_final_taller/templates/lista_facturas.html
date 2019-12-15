@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/cover/">
+    
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='style/css/bootstrap.min.css') }}"   type = "text/css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/css/bootstrap.css') }}" >
+    <link href= "{{ url_for('static', filename='style/') }}"   type = "text/css" rel="stylesheet">
+    <title>Facturación - Taller mecánico</title>
+  </head>
+  <body>
+    <h1 style="text-align: center;">Facturación</h1>
+    &nbsp;
+    <h4>Lista de Facturas</h4>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Nro</th>
+          <th scope="col">Fecha emisión</th>
+          <th scope="col">Cliente</th>
+          <th scope="col">DNI</th>
+          <th scope="col">Importe total</th>
+          <th scope="col">Operaciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%for factura in listafacturas%}
+        <tr>
+          <th scope="row">{{factura.0}}</th>
+          <td>{{factura.1}}</td>
+          <td>{{factura.2}}</td>
+          <td>{{factura.3}}</td>
+          <td>{{factura.4}}</td>
+          <td>
+            <a href="facturacion/facturahojas/{{factura.0}}" class="btn btn-info">Ver hojas</a>
+            {%if factura.1 is none%}
+            <a href="/facturacion/emitir/{{factura.0}}" class="btn btn-success">Emitir</a>
+            {%endif %}
+          </td>
+        </tr>
+        {%endfor%}
+      </tbody>
+    </table>
+    <form action="/menucontroladorLF" method = 'POST' style="text-align: center;">
+      <button type="submit" class="btn btn-primary"  name= btnMenuLF  value="Volver">Volver al menú</button>
+      <button type="submit" class="btn btn-secondary" name= btnMenuLF  value="Agregar">Nueva factura</button>
+    </form>
+  </body>
+</html>

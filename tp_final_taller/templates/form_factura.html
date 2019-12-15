@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/cover/">
+    
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='style/css/bootstrap.min.css') }}"   type = "text/css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/css/bootstrap.css') }}" >
+    <link href= "{{ url_for('static', filename='style/') }}"   type = "text/css" rel="stylesheet">
+    <title>Nueva factura - Taller mecánico</title>
+  </head>
+  <body>
+    <form action="/controladorfactura" method="POST">
+      <h1 style="text-align: center;">Nueva factura</h1>
+      &nbsp;
+      <h4>Lista de Clientes</h4>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Nro</th>
+            <th scope="col">Cliente</th>
+            <th scope="col">DNI</th>
+            <th scope="col">Email</th>
+            <th scope="col">Operaciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%for cliente in listaclientes%}
+          <tr>
+            <th scope="row">{{cliente.0}}</th>
+            <td>{{cliente.1}}</td>
+            <td>{{cliente.2}}</td>
+            <td>{{cliente.3}}</td>
+            <td>
+              <button type="submit" value="{{cliente.0}}"  name = "id_cliente" class="btn btn-success">Seleccionar</button>
+            </td>
+          </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+      &nbsp;
+      <div align="center" >
+        <a href="#" class="btn btn-primary">Nuevo cliente</a>
+        <a href="/facturacion" class="btn btn-danger">Cancelar</a> 
+      </div>
+    </form>
+  </body>
+</html>

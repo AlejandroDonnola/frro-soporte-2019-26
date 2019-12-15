@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/cover/">
+    <!-- Bootstrap core CSS -->
+ <link href="{{ url_for('static', filename='style/css/bootstrap.min.css') }}"   type = "text/css" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style/css/bootstrap.css') }}" >
+  <link href= "{{ url_for('static', filename='style/') }}"   type = "text/css" rel="stylesheet">
+</head>
+<body>
+
+<a href="/facturacion"><button type="submit"  class="btn btn-primary"  name= btnMenuLF  value="Volver">Volver</button></a>
+
+<form action="/menucontroladorLF" method = 'POST'>
+</form>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+      <th scope="col">Facturas sin emitir</th>
+    </tr>
+    <tr>
+      <th scope="col">Nro</th>
+      <th scope="col">Cliente</th>
+      <th scope="col">DNI</th>
+      <th scope="col">Importe total</th>
+      <th scope="col">Operaciones</th>
+    </tr>
+  </thead>
+  <tbody>
+  {%for factura in listafacturas%}
+    <tr>
+      <th scope="row">{{factura.0}}</th>
+      <td>{{factura.1}}</td>
+      <td>{{factura.2}}</td>
+      <td>{{factura.3}}</td>
+
+      <td>
+        <a href="/facturacion/facturahojas/{{factura.0}}"><button type="Button" class="btn btn-info">Ver hojas</button></a>
+          {%if factura.1 is none and factura.3 > 0 %}
+        <a href="/facturacion/emitir/{{factura.0}}"><button  type="Button" class="btn btn-success">Emitir</button></a>
+        {%endif %}
+      </td>
+    </tr>
+    {%endfor%}
+  </tbody>
+</table>
+
+
+</body>
+
+</html>
